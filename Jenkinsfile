@@ -46,13 +46,13 @@ pipeline{
         stage('Deploy to server') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh """
-                            ssh master@master-vm 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && \
-                            docker pull ${DOCKER_IMAGE}:latest && \
-                            docker run -d -p 8081:80 ${DOCKER_IMAGE}:latest'"
-                        """
-                    }
+withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+    sh '''
+    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+    docker pull your-docker-image:latest
+    '''
+}
+
                 }
             }
         }
