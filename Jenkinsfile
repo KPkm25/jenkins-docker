@@ -49,7 +49,7 @@ pipeline{
 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
     sh '''
     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-    docker pull your-docker-image:latest
+    sh 'docker pull kpkm25/my-jenkins-app:latest'
     '''
 }
 
