@@ -45,7 +45,7 @@ pipeline{
 	stage('Deploy to server'){
 		steps{
 			script{
-				sh "sshe master@master-vm'docker pull ${DOCKER_IMAGE}:latest && docker run -d -p 8081:80 ${DOCKER_IMAGE}:latest'"
+				sh "ssh master@master-vm'docker pull ${DOCKER_IMAGE}:latest && docker run -d -p 8081:80 ${DOCKER_IMAGE}:latest'"
 			}
 		}
 }
