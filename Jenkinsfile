@@ -47,10 +47,12 @@ pipeline{
             steps {
                 script {
 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-    sh '''
-    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-	sh 'docker pull kpkm25/my-jenkins-app:latest'
-    '''
+sh '''
+echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+docker pull kpkm25/my-jenkins-app:latest
+'''
+
+
 }
 
                 }
