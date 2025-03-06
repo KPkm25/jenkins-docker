@@ -2,7 +2,7 @@ pipeline{
 	agent any
 	environment{
 		DOCKER_IMAGE = "kpkm25/my-jenkins-app"
-		DOCKER_CREDENTIALS_ID = "docker-hub-creds"
+		DOCKER_CREDENTIALS_ID = "docker-creds"
 
 	}
 	stages {
