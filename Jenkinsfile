@@ -2,6 +2,7 @@ pipeline{
 	agent any
 	environment{
 		DOCKER_IMAGE = "kpkm25/my-jenkins-app"
+		DOCKER_CREDENTIALS_ID = "docker-hub-creds"
 
 	}
 	stages {
@@ -42,17 +43,19 @@ pipeline{
             }
 
         }
-stage('Deploy to server') {
-    steps {
-        script {
-            sh """
-                ssh master@master-vm 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && \
-                docker pull ${DOCKER_IMAGE}:latest && \
-                docker run -d -p 8081:80 ${DOCKER_IMAGE}:latest'"
-            """
+        stage('Deploy to server') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh """
+                            ssh master@master-vm 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && \
+                            docker pull ${DOCKER_IMAGE}:latest && \
+                            docker run -d -p 8081:80 ${DOCKER_IMAGE}:latest'"
+                        """
+                    }
+                }
+            }
         }
-    }
-}
 
     }
 }
