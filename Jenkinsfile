@@ -24,7 +24,7 @@ pipeline{
 	stage('Run Container Locally'){
 		steps {
 			script {
-				sh "docker run -d -p 8081:80 --name my-container${DOCKER_IMAGE}:latest"
+				sh "docker run -d -p 8081:80 --name ${DOCKER_IMAGE}:latest"
 			}
 		}
 }
