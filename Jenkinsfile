@@ -8,7 +8,7 @@ pipeline{
         stage('Clone Repository') {
             steps {
                 echo "Cloning repository..."
-                git url: 'https://github.com/KPkm25/Py-JenDock', branch: 'main'
+                git url: 'https://github.com/KPkm25/jenkins-docker.git', branch: 'main'
                 echo "Repository cloned successfully."
             }
         }
